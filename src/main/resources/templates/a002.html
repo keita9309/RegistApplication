@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>画面遷移(forward)成功！！</h1>
+	<form th:action="@{/a003}" method="post" th:object="${a002Form}">
+		<label>姓：<span th:text="*{lastName}"></span></label>
+		<!-- <input type=text th:field="*{lastName}" disabled> -->
+		<br>
+		<label>名：<span th:text="*{firstName}"></span></label>
+		<!-- <input type=text th:field="*{firstName}" disabled> -->
+		<br>
+		<label>生年月日：<span th:text="*{birthDate}"></span></label>
+		<!-- <input type=text th:field="*{birthDate}" disabled> -->
+		<br>
+		<label>年齢：<span th:text="*{age}"></span></label>
+		<!-- <input type=text th:field="*{age}" disabled> -->
+		<br>
+		<label>ユーザコード：<span th:text="*{userCode}"></span></label>
+		<!-- <input type=text th:field="*{userCode}" disabled> -->
+		<br>
+		<label>郵便番号：<span th:text="*{zipCode}"></span></label>
+		<!-- <input type=text th:field="*{zipCode}" disabled> -->
+		<br>
+		<label>都道府県：<span th:text="*{kenCode}"></span></label>
+		<!-- <input type=text th:field="*{kenCode}" disabled> -->
+		<br>
+		<label>住所1：<span th:text="*{address1}"></span></label>
+		<!-- <input type=text th:field="*{address1}" disabled> -->
+		<br>
+		<label>住所2：<span th:text="*{address2}"></span></label>
+		<!-- <input type=text th:field="*{zipCode}" disabled> -->
+		<br>
+		<label>住所3：<span th:text="*{address3}"></span></label>
+		<!-- <input type=text th:field="*{address3}" disabled> -->
+		<br>
+		<input type="submit" value="ボタン">
+	</form>
+</body>
+</html>
