@@ -4,7 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>登録情報入力ページ</title>
-<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet"/>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <link th:href="@{./css/style.css}" rel="stylesheet">
 </head>
 <body>
@@ -14,94 +17,216 @@
 		</div>
 	</header>
 	<main class="mt-5">
-		<div class="container grid-col12">
-			<form th:action="@{/a002}" method="post" th:object="${a001Form}">
-				<div class="label-items form-horizontal col-12">
-					<!-- /* 氏名(姓・名) */ -->
-					<div class="label-item form-group mt-3">
-						<label class="control-label item-name">氏名</label>
-						<span class="must-input">必須</span>
-						<div class="form-inline">
-							<label for="lastName"><span class="input-label">姓</span></label>
-							<input id="lastName" class="form-control input-item" type="text"
-								th:field="*{lastName}">
+		<div class="grid-container">
+			<!-- 初回の画面遷移の場合 -->
+			<div th:if="${screenTransitionFlg} == 0">
+				<p th:text="#{new.title}" class="screen_title"></p>
+				<p class="date-time" th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd HH:mm')}"></p>
+			</div>
+			<!-- 2回目以降の画面遷移の場合 -->
+			<div th:if="${screenTransitionFlg} == 1">
+				<p th:text="#{edit.title}" class="screen_title"></p>
+				<p class="date-time" th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd HH:mm')}"></p>
+			</div>
+			<!-- ブラウザバックでの画面遷移の場合 -->
+			<div th:if="${screenTransitionFlg} == 2">
+				<p th:text="#{back.title}" class="screen_title"></p>
+				<p class="date-time" th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd HH:mm')}"></p>
+			</div>
+			<!-- <div class="mt-5">
+       <input type=checkbox id="nameDisplay"> 氏名の表示切替
+       <!-- <div class="container"> -->
+			<!-- <div class="grid"> -->
+			<div class="">
+				<form class="col-12 f-pd" th:action="@{/a002}" method="post"
+					th:object="${a001Form}" name="form">
+					<div class="mb-3 ml-0">
+						<!-- /* 氏名 */ -->
+						<label class="form-label control-label item-name mt-4">
+						<span th:text="#{label.name}"></span>&nbsp;
+						<span class="must-input" th:text="#{label.must}"></span></label>
+						<!-- <div class="row input-group input-group-sm mb-3 ml-0 flex-nowrap"> -->
+						<!-- <div class="grid"> -->
+						<!-- /* 姓 */ -->
+						<div class="mb-1">
+							<div class="row col-12 flex-nowrap pd-0 mg-0">
+								<label class="col-sm-1 input-label input-group-text"
+									for="lastName"><span th:text="#{label.name.sei}"></span></label>
+								<!-- <div class="col-sm-5 pd-0"> -->
+								<input id="lastName" class="form-control input-item" type="text"
+									th:field="*{lastName}" required>
+								<!-- </div> -->
+							</div>
 						</div>
-						<div class="form-inline mt-1">
-							<label for="firstName"><span class="input-label">名</span></label>
+						<!-- <div class="grid"> -->
+						<!-- /* 名 */ -->
+						<div class="row col-12 flex-nowrap pd-0 mg-0">
+							<label class="col-sm-1 input-label input-group-text"
+								for="firstName"><span th:text="#{label.name.mei}"></span></label>
+							<!-- <div class="col-sm-5 pd-0"> -->
 							<input id="firstName" class="form-control input-item" type="text"
-								th:field="*{firstName}">
+								th:field="*{firstName}" required>
+							<!-- </div> -->
 						</div>
+						<!-- </div> -->
 					</div>
 					<!-- /* 生年月日 */ -->
-					<div class="label-item form-group mt-3">
-						<div class="input-item mt-5">
-							<label class="control-label item-name" for="birthDate">生年月日</label>
-							<span class="must-input">必須</span>
-							<div class="form-inline">
-								<input id="birthDate" class="form-control input-item" type="date" th:field="*{birthDate}">
-							</div>
-						</div>
+					<div class="mb-3 ml-0">
+						<label class="control-label item-name mt-4" for="birthDate">
+						<span th:text="#{label.birthDate}"></span>&nbsp;
+						<span class="must-input" th:text="#{label.must}"></span></label>
+						<!-- <div class="grid"> -->
+						<!-- <div class="row col-12"> -->
+						<!-- <div class="row input-group input-group-sm mb-3 ml-0"> -->
+						<!-- <div class="col-sm-6 pd-0"> -->
+						<input id="birthDate" class="form-control" type="date"
+							th:field="*{birthDate}">
+						<!-- </div> -->
+						<!-- </div> -->
+						<!-- </div> -->
 					</div>
 					<!-- /* 年齢 */ -->
-					<div class="label-item form-group mt-3">
-						<div class="input-item mt-5">
-							<label class="control-label item-name" for="age">年齢</label>
-							<span class="must-input">必須</span>
-							<div class="form-inline">
-								<input id="age" class="form-control input-item" type="number" th:field="*{age}">
-							</div>
+					<label class="control-label item-name mt-4" for="age">
+					<span th:text="#{label.age}"></span>&nbsp;
+					<span class="must-input" th:text="#{label.must}"></span></label>
+					<div class="mb-3">
+						<div class="">
+							<input id="age" class="form-control" type="number"
+								th:field="*{age}">
 						</div>
 					</div>
-					<!-- /* ユーザコード */ -->
-					<div class="label-item form-group mt-3">
-						<div class="input-item mt-5">
-							<label class="control-label item-name" for="userCode">ユーザコード</label>
-							<!-- <span class="must-input">必須</span> -->
-							<div class="form-inline">
-								<input id="userCode" class="form-control input-item" type="text" th:field="*{userCode}">
-							</div>
+					<!-- /* 実務経験の有無 */ -->
+					<label class="control-label item-name mt-4">
+					<span th:text="#{label.workExperienceFlg}"></span>&nbsp;
+					<span class="must-input" th:text="#{label.must}"></span></label>
+					<div class="mb-3">
+						<select id="work-experience" class="form-control"
+							th:field="*{workExperienceFlg}" required>
+							<option th:value="#{label.spaceCharacter}" th:text="#{label.misentaku}"></option>
+							<option th:value="#{label.value.one}"
+								th:text="#{label.workExperienceFlg.experienced}"></option>
+							<option th:value="#{label.value.zero}"
+								th:text="#{label.workExperienceFlg.notExperienced}"></option>
+						</select>
+					</div>
+					<!-- /* 現在の職種(業務内容) */ -->
+					<label class="control-label item-name mt-4">
+					<span th:text="#{label.typeOfOccupationKbn}"></span>&nbsp;
+					<span class="must-input" th:text="#{label.must}"></span></label>
+					<div class="mb-3">
+						<div class="occupations">
+							<!-- /* PM/PL */ -->
+							<label class="typeOfOccupation"> <input id="pmOrPl"
+								type=radio class="form-check-input" th:field="*{typeOfOccupationKbn}"
+								value="1" required>&nbsp;<span th:text="#{label.typeOfOccupationKbn.1}"></span>								
+							</label>
+							<!-- /* SE */ -->
+							<label class="typeOfOccupation"> <input id="se"
+								type=radio class="form-check-input" th:field="*{typeOfOccupationKbn}"
+								value="2" required>&nbsp;<span th:text="#{label.typeOfOccupationKbn.2}"></span>
+							</label>
+							<!-- /* PG */ -->
+							<label class="typeOfOccupation"> <input id="pg"
+								type=radio class="form-check-input" th:field="*{typeOfOccupationKbn}"
+								value="3" required>&nbsp;<span th:text="#{label.typeOfOccupationKbn.3}"></span>
+							</label>
+							<!-- /* その他 */ -->
+							<label class="typeOfOccupation"> <input id="else"
+								type=radio class="form-check-input" th:field="*{typeOfOccupationKbn}"
+								value="4" required>&nbsp;<span th:text="#{label.typeOfOccupationKbn.4}"></span>
+							</label>
+						</div>
+					</div>
+					<!-- /* 得意言語 */ -->
+					<label class="control-label item-name mt-4">
+					<span>使用した事のあるプログラミング言語</span>&nbsp;
+					<span class="must-input" th:text="#{label.must}"></span></label>
+					<div class="mb-3">
+						<div class="occupations">
+							<!-- /* Java */ -->
+							<label class="typeOfOccupation">
+							<input id="pro-lung-java"
+								type=checkbox class="form-check-input" th:field="*{experiencedProgrammingLungage}"
+								th:checked="${isChecked}" value="1" required>&nbsp;<span>Java</span>								
+							</label>
+							<!-- /* PHP */ -->
+							<label class="typeOfOccupation">
+							<input id="pro-lung-php"
+								type=checkbox class="form-check-input" th:field="*{experiencedProgrammingLungage}"
+								th:checked="${isChecked}" value="2" required>&nbsp;<span>PHP</span>
+							</label>
+							<!-- /* Ruby */ -->
+							<label class="typeOfOccupation">
+							<input id="pro-lung-Ruby"
+								type=checkbox class="form-check-input" th:field="*{experiencedProgrammingLungage}"
+								th:checked="${isChecked}" value="3" required>&nbsp;<span>Ruby</span>
+							</label>
+							<!-- /* その他 */ -->
+							<label class="typeOfOccupation">
+							<input id="pro-lung-else"
+								type=checkbox class="form-check-input" th:field="*{experiencedProgrammingLungage}"
+								th:checked="${isChecked}" value="4" required>&nbsp;<span>その他</span>
+							</label>
+						</div>
+					</div>
+					<!-- /* 電話番号 */ -->
+					<label class="control-label item-name mt-4" for="telNo"><span th:text="#{label.telNo}"></span></label>
+					<div class="mb-3">
+						<div class="">
+							<input id="telNo" class="form-control" type="text"
+								th:field="*{telNo}" placeholder="ex) 0800000000" maxlength=11 >
 						</div>
 					</div>
 					<!-- /* 住所 */ -->
-					<div class="label-item form-group mt-3">
-						<div class="input-item mt-5">
-							<label class="control-label item-name">住所</label> <span
-								class="must-input">必須</span>
-							<div class="form-inline">
-								<label for="zipCode"><span class="input-label">郵便番号</span></label>
-								<input id="zipCode" class="form-control input-item" type="text"
-									th:field="*{zipCode}">
-							</div>
-							<div class="form-inline mt-1">
-								<label for="kenCode"><span class="input-label">都道府県</span></label>
-								<input id="kenCode" class="form-control input-item" type="text"
-									th:field="*{kenCode}">
-							</div>
-							<div class="form-inline mt-1">
-								<label for="address1"><span class="input-label">住所1</span></label>
-								<input id="address1" class="form-control input-item"
-									type="text" th:field="*{address1}">
-							</div>
-							<div class="form-inline mt-1">
-								<label for="address2"><span class="input-label">住所2</span></label>
-								<input id="address2" class="form-control input-item"
-									type="text" th:field="*{address2}">
-							</div>
-							<div class="form-inline mt-1">
-								<label for="address3"><span class="input-label">住所3</span></label>
-								<input id="address3" class="form-control input-item"
-									type="text" th:field="*{address3}">
-							</div>
+					<label class="form-label control-label item-name mt-4"><span th:text="#{label.address}"></span>&nbsp;
+					<span class="must-input" th:text="#{label.must}"></span></label>
+					<div class="mb-1">
+						<div class="row col-12 flex-nowrap pd-0 mg-0">
+							<label class="col-sm-1 input-label input-group-text" for="zipCode"><span th:text="#{label.zipCd}"></span></label>
+							<input id="zipCode" class="form-control input-item" type="text"
+								th:field="*{zipCode}" placeholder="ex) 1110032(ハイフンなし)" name="zipCode" maxlength=7 >
 						</div>
 					</div>
-					<div class="confirm mt-5">
-						<input type="submit" value="確認">
+					<div class="mb-1">
+						<div class="row col-12 flex-nowrap pd-0 mg-0">
+							<label class="col-sm-1 input-label input-group-text" for="kenCode"><span th:text="#{label.kenCd}"></span></label>
+							<input id="kenCode" class="form-control input-item" type="text"
+								th:field="*{kenCode}" placeholder="ex) 東京都" name="kenCode" maxlength=4 >
+						</div>
 					</div>
-				</div>
-			</form>
+					<div class="mb-1">
+						<div class="row col-12 flex-nowrap pd-0 mg-0">
+							<label class="col-sm-1 input-label input-group-text" for="address1"><span th:text="#{label.address1}"></span></label>
+							<input id="address1" class="form-control input-item" type="text"
+								th:field="*{address1}" placeholder="ex) 台東区浅草" name="address1" maxlength=25 >
+						</div>
+					</div>
+					<div class="mb-1">
+						<div class="row col-12 flex-nowrap pd-0 mg-0">
+							<label class="col-sm-1 input-label input-group-text" for="address2"><span th:text="#{label.address2}"></span></label>
+							<input id="address2" class="form-control input-item" type="text"
+								th:field="*{address2}" placeholder="ex) 2-3-1" name="address2" maxlength=25 >
+						</div>
+					</div>
+					<div class="mb-3">
+						<div class="row col-12 flex-nowrap pd-0 mg-0">
+							<label class="col-sm-1 input-label input-group-text" for="address3"><span th:text="#{label.address3}"></span></label>
+							<input id="address3" class="form-control input-item" name="address3" type="text"
+								th:field="*{address3}" >
+						</div>
+					</div>
+					<div class="confirm mt-5 mb-5">
+						<!-- <input class="btn btn-primary btn-confirm" type="submit"
+                        value="確認" name="btn" disabled> -->
+                        <!-- /* 確認 */ -->
+						<button class="btn btn-primary btn-confirm" name="confirmBtn"
+							disabled>確認</button>
+					</div>
+				</form>
+			</div>
 		</div>
+		<!-- </div> -->
 	</main>
-	<script th:href="@{/webjars/jquery/3.5.0/js/jquery.min.js}"></script>
-	<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/index.js}"></script>
 </body>
 </html>

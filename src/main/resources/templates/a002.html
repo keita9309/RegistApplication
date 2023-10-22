@@ -2,42 +2,133 @@
 <html lang="jp" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>登録情報確認ページ</title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<link th:href="@{./css/style.css}" rel="stylesheet">
 </head>
 <body>
-	<h1>画面遷移(forward)成功！！</h1>
-	<form th:action="@{/a003}" method="post" th:object="${a002Form}">
-		<label>姓：<span th:text="*{lastName}"></span></label>
-		<!-- <input type=text th:field="*{lastName}" disabled> -->
-		<br>
-		<label>名：<span th:text="*{firstName}"></span></label>
-		<!-- <input type=text th:field="*{firstName}" disabled> -->
-		<br>
-		<label>生年月日：<span th:text="*{birthDate}"></span></label>
-		<!-- <input type=text th:field="*{birthDate}" disabled> -->
-		<br>
-		<label>年齢：<span th:text="*{age}"></span></label>
-		<!-- <input type=text th:field="*{age}" disabled> -->
-		<br>
-		<label>ユーザコード：<span th:text="*{userCode}"></span></label>
-		<!-- <input type=text th:field="*{userCode}" disabled> -->
-		<br>
-		<label>郵便番号：<span th:text="*{zipCode}"></span></label>
-		<!-- <input type=text th:field="*{zipCode}" disabled> -->
-		<br>
-		<label>都道府県：<span th:text="*{kenCode}"></span></label>
-		<!-- <input type=text th:field="*{kenCode}" disabled> -->
-		<br>
-		<label>住所1：<span th:text="*{address1}"></span></label>
-		<!-- <input type=text th:field="*{address1}" disabled> -->
-		<br>
-		<label>住所2：<span th:text="*{address2}"></span></label>
-		<!-- <input type=text th:field="*{zipCode}" disabled> -->
-		<br>
-		<label>住所3：<span th:text="*{address3}"></span></label>
-		<!-- <input type=text th:field="*{address3}" disabled> -->
-		<br>
-		<input type="submit" value="ボタン">
-	</form>
+	<header>
+		<!-- <h1>画面遷移(forward)成功！！</h1> -->
+		<div class="header-class">
+			<h1 th:text="#{screen.title.confirm}"></h1>
+			<!-- <h1>確認画面</h1> -->
+		</div>
+	</header>
+	<div class="container">
+		<form th:action="@{/a003}" method="post" th:object="${a002Form}">
+			<!-- /* 氏名（姓） */ -->
+			<div class="mt-5 mb-3">
+				<label class="display-block"><span
+					th:text="#{label.name.shimei.sei}"></span></label> <input type=hidden
+					th:field="*{lastName}"> <input
+					class="display-block confirm-input" type=text
+					th:field="*{lastName}" disabled>
+			</div>
+			<!-- /* 氏名（名） */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.name.shimei.mei}"></span></label> <input type=hidden
+					th:field="*{firstName}"> <input
+					class="display-block confirm-input" type=text
+					th:field="*{firstName}" disabled>
+			</div>
+			<!-- /* 生年月日 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.birthDate}"></span></label> <input type=hidden
+					th:field="*{birthDate}"> <input
+					class="display-block confirm-input" type=text
+					th:field="*{birthDate}" disabled>
+			</div>
+			<!-- /* 年齢 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span th:text="#{label.age}"></span></label>
+				<input type=hidden th:field="*{age}"> <input
+					class="display-block confirm-input" type=text th:field="*{age}"
+					disabled>
+			</div>
+			<!-- /* 実務経験の有無 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.workExperienceFlg}"></span></label>
+					<input type=hidden th:field="*{workExperienceFlg}">
+					<input class="display-block confirm-input" type=text
+					th:field="*{workExperienceFlg}" disabled>
+			</div>
+			<!-- /* 現在の職種(業務内容) */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.typeOfOccupationKbn}"></span></label>
+					<input type=hidden th:field="*{typeOfOccupationKbn}">
+					<input class="display-block confirm-input" type=text
+					th:field="*{typeOfOccupationKbn}" disabled>
+			</div>
+			<!-- /* 使用した事のあるプログラミング言語 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span>使用した事のあるプログラミング言語</span></label>
+					<input type=hidden th:field="*{experiencedProgrammingLungage}">
+					<input class="display-block confirm-input" type=text
+					th:field="*{experiencedProgrammingLungage}" disabled>
+			</div>
+			<!-- /* 電話番号 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span th:text="#{label.telNo}"></span></label>
+				<input type=hidden th:field="*{telNo}"> <input
+					class="display-block confirm-input" type=text th:field="*{telNo}"
+					disabled>
+			</div>
+			<!-- /* 郵便番号 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span th:text="#{label.zipCd}"></span></label>
+				<input type=hidden th:field="*{zipCode}"> <input
+					class="display-block confirm-input" type=text th:field="*{zipCode}"
+					disabled>
+			</div>
+			<!-- /* 都道府県 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span th:text="#{label.kenCd}"></span></label>
+				<input type=hidden th:field="*{kenCode}"> <input
+					class="display-block confirm-input" type=text th:field="*{kenCode}"
+					disabled>
+			</div>
+			<!-- /* 住所1 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.address1}"></span></label> <input type=hidden
+					th:field="*{address1}"> <input
+					class="display-block confirm-input" type=text
+					th:field="*{address1}" disabled>
+			</div>
+			<!-- /* 住所2 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.address2}"></span></label> <input type=hidden
+					th:field="*{address2}"> <input
+					class="display-block confirm-input" type=text
+					th:field="*{address2}" disabled>
+			</div>
+			<!-- /* 住所3 */ -->
+			<div class="mb-3">
+				<label class="display-block"><span
+					th:text="#{label.address3}"></span></label> <input type=hidden
+					th:field="*{address3}"> <input
+					class="display-block confirm-input" type=text
+					th:field="*{address3}" disabled>
+			</div>
+			<div id="btn">
+				<!-- /* 確定ボタン*/ -->
+				<div class="mb-5">
+					<input class="btn btn-primary btn-submit" type="submit" value="確定">
+				</div>
+				<!-- /* 戻るボタン */ -->
+				<div id="btn-back" class="mb-5">
+					<button th:formaction="@{'/back_a001'}" class="btn btn-secondary btn-submit">戻る</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

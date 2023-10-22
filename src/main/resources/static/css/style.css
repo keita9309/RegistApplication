@@ -9,27 +9,70 @@ header {
 	justify-content: center;
 	align-items: center;
 	color: white;
-	background: gray;
+	background: #00CC99;
+	/* background: gray; */
 	height: 75px;
 }
-/* 
-main {
-	width: 1160px;;
-}
- */
-.label-items {
-	width: 	50em;
-	margin: 0 auto;
+
+.screen_title {
+	color : #00CC99;
+	font-weight : bold;
+	font-size : 20px;
 }
 
+.grid {
+ 	display: grid;
+	grid-template-columns: repeat(12, [ col-start ] 1fr);
+	/* grid-template-columns: repeat(12, 80px); */
+}
+
+.col-12 {
+	grid-column: col-start/span 12;
+}
+/* 
+.grid>* {
+	grid-column: col-start/span 12;
+}
+ */
+ 
+.grid-container {
+	padding: 0 1em;
+}
+
+.col-s0-2 {
+	grid-column:  col-start/span 2;
+}
+
+.col-s2-4 {
+	grid-column:  col-start 2/span 4;
+}
+
+/* 
+label, input {
+ 	display: block;
+}
+ */
+ 
+.message {
+	color: red;
+	font-weight: bold;
+}
+
+/* 
+.name-input {
+	display: none;
+}
+ */
+ 
 .item-name {
 	font-size: 16px;
 	font-weight: bold;
 }
 
 .must-input {
+	/* font-weight: bold; */
 	color: white;
-	background: red;
+	background: #FF4F50;
 	font-size: 15px;
 	padding: 4px;
 	margin-left: 5px;
@@ -37,35 +80,107 @@ main {
 	border-radius: 0.25rem;
 }
 
-.label-item {
-	display: inline;
+.pd-0 {
+	padding: 0px;
+}
+
+.mg-0 {
+	margin: 0px;
+}
+
+.input-item {
+	border-radius: 0 4px 4px 0;
+	/* width: 25em; */
 }
 
 .input-label {
+	font-weight: bold;
+	color: white;
+	background: #00CC99;
+	/* background: #BBBBBB; */
+	border-radius: 4px 0 0 4px;
+	min-width: 5.5rem;
+	/* 
 	display: flex;
 	align-items: center;
 	width: 5em;
 	border: 1px solid #ced4da;
 	border-radius: 0.25rem;
-	background: #BBBBBB;
 	padding-left: 0.5em;
 	height: 38px;
+	 */
 }
 
-#lastName.form-control.input-item,
-#firstName.form-control.input-item {
-	width: 25em;
+.occupations{
+	padding: 0 1.5em;
 }
 
-@media screen and (max-width: 768px) {
-	.label-items {
-		/* width: 25em;
-		margin: 0 auto; */
+.typeOfOccupation{
+	display: block;
+}
+
+#btn {
+	display: flex;
+}
+
+#btn-back {
+	margin-left: 3rem;
+}
+
+.display-block {
+	display: block;
+}
+
+.confirm-input {
+	height: 3rem;
+	margin-bottom: 1.5rem;
+	padding-left: 1rem;
+	width: 100%;
+	min-width: 18rem;
+}
+
+ /* 
+.btn-confirm {
+	width: 100px;
+	height: 45px;
+}
+ */
+
+/* どの画面幅でも対象の要素が広がらないように設定 */
+/* @media (min-width: 576px) */
+.col-sm-1 {
+   -ms-flex: 0 0 8.333333%;
+   flex: 0 0 8.333333%;
+   max-width: 8.333333%;
+}
+
+@media screen and (min-width: 0px) and (max-width: 576px) {
+	.f-pd {
+		padding: 0px;
 	}
-	
+	/* #lastName.form-control.input-item,
+	#firstName.form-control.input-item{
+		max-width: 13em;
+	}
+	#birthDate.form-control{
+		max-width: 18em;
+	} */
+}
+ 
+@media screen and (min-width: 768px) {
+	/* 
+	.label-items {
+		width: 25em;
+		margin: 0 auto;
+	}
+	 */
+	.grid-container {
+		padding: 0 4em;
+	}
+	/* 
 	#lastName.form-control.input-item,
 	#firstName.form-control.input-item {
-		width: 15em;
+		min-width: 15em;
 	}
-	
+	 */
 }
