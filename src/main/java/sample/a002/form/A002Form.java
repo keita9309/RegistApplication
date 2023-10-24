@@ -1,6 +1,7 @@
 package sample.a002.form;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -34,7 +35,14 @@ public class A002Form {
 	private String zipCode;
 	
 	/* 都道府県 */
-	private String kenCode;
+	private Map<String, String> prefectures;
+	//private String kenCode;
+	
+	/* 選択された都道府県コード */
+	private String selectedKenCd;
+	
+	/* 都道府県 */
+	//private String kenCode;
 	
 	/* 住所1 */
 	private String address1;

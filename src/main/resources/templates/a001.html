@@ -180,6 +180,7 @@
 					<!-- /* 住所 */ -->
 					<label class="form-label control-label item-name mt-4"><span th:text="#{label.address}"></span>&nbsp;
 					<span class="must-input" th:text="#{label.must}"></span></label>
+					<!-- /* 郵便番号 */ -->
 					<div class="mb-1">
 						<div class="row col-12 flex-nowrap pd-0 mg-0">
 							<label class="col-sm-1 input-label input-group-text" for="zipCode"><span th:text="#{label.zipCd}"></span></label>
@@ -187,13 +188,22 @@
 								th:field="*{zipCode}" placeholder="ex) 1110032(ハイフンなし)" name="zipCode" maxlength=7 >
 						</div>
 					</div>
+					<!-- /* 都道府県 */ -->
 					<div class="mb-1">
 						<div class="row col-12 flex-nowrap pd-0 mg-0">
 							<label class="col-sm-1 input-label input-group-text" for="kenCode"><span th:text="#{label.kenCd}"></span></label>
-							<input id="kenCode" class="form-control input-item" type="text"
-								th:field="*{kenCode}" placeholder="ex) 東京都" name="kenCode" maxlength=4 >
+							<!-- <input id="kenCode" class="form-control input-item" type="text"
+								th:field="*{kenCode}" placeholder="ex) 東京都" name="kenCode" maxlength=4 > -->
+							<select th:field="*{selectedKenCd}" id="kenCode" class="form-control input-item" >
+								<option value="">-- 未選択 --</option>
+								<option th:each="prefecture : *{prefectures}"
+									th:value="${prefecture.key}"
+									th:text="${prefecture.value}">
+								</option>
+							</select>
 						</div>
 					</div>
+					<!-- /* 住所1 */ -->
 					<div class="mb-1">
 						<div class="row col-12 flex-nowrap pd-0 mg-0">
 							<label class="col-sm-1 input-label input-group-text" for="address1"><span th:text="#{label.address1}"></span></label>
@@ -201,6 +211,7 @@
 								th:field="*{address1}" placeholder="ex) 台東区浅草" name="address1" maxlength=25 >
 						</div>
 					</div>
+					<!-- /* 住所2 */ -->
 					<div class="mb-1">
 						<div class="row col-12 flex-nowrap pd-0 mg-0">
 							<label class="col-sm-1 input-label input-group-text" for="address2"><span th:text="#{label.address2}"></span></label>
@@ -208,6 +219,7 @@
 								th:field="*{address2}" placeholder="ex) 2-3-1" name="address2" maxlength=25 >
 						</div>
 					</div>
+					<!-- /* 住所3 */ -->
 					<div class="mb-3">
 						<div class="row col-12 flex-nowrap pd-0 mg-0">
 							<label class="col-sm-1 input-label input-group-text" for="address3"><span th:text="#{label.address3}"></span></label>

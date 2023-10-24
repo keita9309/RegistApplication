@@ -1,6 +1,11 @@
 package sample.a002.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +18,9 @@ import sample.common.cd.CD001;
 
 @Controller
 public class A002Controller {
+	
+	@Autowired
+	HttpSession session;	
 	
 	/**
 	 * a002画面を表示
@@ -45,15 +53,17 @@ public class A002Controller {
 	 */
 	@PostMapping("/a003")
 	public String index002(@ModelAttribute A002Form a002Form, Model model) {
-		A001Form a001Form = new A001Form();
+		// セッションから値を取得
+		A001Form data = (A001Form)session.getAttribute("data");
+		System.out.println("data : " + data);
+		// セッション情報クリア
+		session.invalidate();
 		// コピー元, コピー先
-		BeanUtils.copyProperties(a002Form, a001Form);
+		//BeanUtils.copyProperties(data, a002Form);
 		/* 0:新規、1:修正:、2:ブラウザバッグ */
 		String screenTransitionFlg = "1";
 		model.addAttribute("screenTransitionFlg", screenTransitionFlg);
-		model.addAttribute("a001Form", a001Form);
-		System.out.println("A001Form : " + a001Form);
-		System.out.println("A002Form : " + a002Form);
+		model.addAttribute("a001Form", data);
 		return "a001";
 	}
 	
@@ -95,19 +105,20 @@ public class A002Controller {
 		// 使用した事のあるプログラミング言語
 		int count = 0;
 		for(String num : a001Form.getExperiencedProgrammingLungage()) {
-			
+			List<String> exProLungList = a001Form.getExperiencedProgrammingLungage();
+			System.out.println("exProLungList : " + exProLungList);
 			switch (num) {
 			case A002Constants.ONE:
-				a001Form.getExperiencedProgrammingLungage().set(count, A002Constants.PRO_LUNG_JAVA);
+				exProLungList.set(count, A002Constants.PRO_LUNG_JAVA);
 				break;
 			case A002Constants.TWO:
-				a001Form.getExperiencedProgrammingLungage().set(count, A002Constants.PRO_LUNG_PHP);
+				exProLungList.set(count, A002Constants.PRO_LUNG_PHP);
 				break;
 			case A002Constants.THREE:
-				a001Form.getExperiencedProgrammingLungage().set(count, A002Constants.PRO_LUNG_RUBY);
+				exProLungList.set(count, A002Constants.PRO_LUNG_RUBY);
 				break;
 			case A002Constants.FOUR:
-				a001Form.getExperiencedProgrammingLungage().set(count, A002Constants.PRO_LUNG_ELSE);
+				exProLungList.set(count, A002Constants.PRO_LUNG_ELSE);
 				break;
 			}
 			count++;
